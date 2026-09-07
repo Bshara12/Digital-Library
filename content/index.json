@@ -1,0 +1,186 @@
+[
+  {
+    "slug": "birth-of-the-new-religion",
+    "title": "ولادة الدين الجديد",
+    "subtitle": "دراسة موجزة وتحليل إمكانية سيطرة الدين الابراهيمي",
+    "author": "عصام السالم",
+    "sourceFile": "ولادة الدين الجديد.docx",
+    "accent": "#17281E",
+    "tags": [
+      "أديان",
+      "تحليل"
+    ],
+    "order": 1,
+    "pageCount": 101,
+    "wordCount": 19827,
+    "readingMinutes": 120,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/birth-of-the-new-religion.pdf",
+      "bytes": 1161415
+    },
+    "chapterCount": 18
+  },
+  {
+    "slug": "nephilim-anunnaki",
+    "title": "من النيفيليم إلى الأنوناكي والكائنات الغامضة",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "من النيفيليم إلى الأنوناكي والكائنات الغامضة.docx",
+    "accent": "#14203A",
+    "tags": [
+      "حضارات قديمة",
+      "أساطير"
+    ],
+    "order": 2,
+    "pageCount": 99,
+    "wordCount": 17266,
+    "readingMinutes": 105,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/nephilim-anunnaki.pdf",
+      "bytes": 867384
+    },
+    "chapterCount": 22
+  },
+  {
+    "slug": "cosmic-duality-sheol",
+    "title": "الثنائية الكونية والشيول",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "الثنائية الكونية والشيول.docx",
+    "accent": "#2A2340",
+    "tags": [
+      "أديان",
+      "حضارات قديمة"
+    ],
+    "order": 3,
+    "pageCount": 125,
+    "wordCount": 23026,
+    "readingMinutes": 140,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/cosmic-duality-sheol.pdf",
+      "bytes": 1110109
+    },
+    "chapterCount": 21
+  },
+  {
+    "slug": "miracles-and-myths",
+    "title": "المعجزات والأساطير",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "المعجزات.docx",
+    "accent": "#14312F",
+    "tags": [
+      "أديان",
+      "أساطير"
+    ],
+    "order": 4,
+    "pageCount": 62,
+    "wordCount": 10865,
+    "readingMinutes": 66,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/miracles-and-myths.pdf",
+      "bytes": 565884
+    },
+    "chapterCount": 11
+  },
+  {
+    "slug": "from-gods-to-slaves",
+    "title": "من آلهة وملوك إلى عبيد",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "من آلهة وملوك إلى عبيد.docx",
+    "accent": "#2E1B2C",
+    "tags": [
+      "تاريخ",
+      "مجتمع"
+    ],
+    "order": 5,
+    "pageCount": 135,
+    "wordCount": 25685,
+    "readingMinutes": 156,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/from-gods-to-slaves.pdf",
+      "bytes": 4932547
+    },
+    "chapterCount": 40
+  },
+  {
+    "slug": "the-disease-of-power",
+    "title": "داء السلطة",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "داء السلطة.docx",
+    "accent": "#33261A",
+    "tags": [
+      "سياسة",
+      "مجتمع"
+    ],
+    "order": 6,
+    "pageCount": 131,
+    "wordCount": 24563,
+    "readingMinutes": 149,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/the-disease-of-power.pdf",
+      "bytes": 1663659
+    },
+    "chapterCount": 12
+  },
+  {
+    "slug": "levant-peoples",
+    "title": "سكان بلاد الشام والوجود المسيحي",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "سكان بلاد الشام والتواجد المسيحي.docx",
+    "accent": "#2B2A1C",
+    "tags": [
+      "تاريخ",
+      "بلاد الشام"
+    ],
+    "order": 7,
+    "pageCount": 214,
+    "wordCount": 41097,
+    "readingMinutes": 249,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/levant-peoples.pdf",
+      "bytes": 1542483
+    },
+    "chapterCount": 10
+  },
+  {
+    "slug": "the-conspiracy",
+    "title": "المؤامرة",
+    "subtitle": "دراسة تحليلية لنظرية المؤامرة والأحداث التي مرت على سوريا منذ تأسيسها",
+    "author": "عصام السالم",
+    "sourceFile": "المؤامرة.docx",
+    "accent": "#3A1C22",
+    "tags": [
+      "سياسة",
+      "تاريخ معاصر"
+    ],
+    "order": 8,
+    "pageCount": 187,
+    "wordCount": 33532,
+    "readingMinutes": 203,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/the-conspiracy.pdf",
+      "bytes": 1282841
+    },
+    "chapterCount": 29
+  }
+]

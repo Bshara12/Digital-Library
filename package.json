@@ -1,0 +1,32 @@
+{
+  "name": "esam-alsalem-library",
+  "version": "0.1.0",
+  "private": true,
+  "description": "المكتبة الرقمية لأعمال المهندس عصام السالم",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "ingest": "node scripts/ingest.mjs",
+    "ingest:report": "node scripts/ingest.mjs --report-only",
+    "pdf": "node scripts/export-pdf.mjs"
+  },
+  "dependencies": {
+    "motion": "^13.2.0",
+    "next": "^15.5.25",
+    "pdfjs-dist": "^6.3.289",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@cspell/dict-ar": "^1.1.7",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.4.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "cspell-trie-lib": "^10.2.2",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3"
+  }
+}

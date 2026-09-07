@@ -1,0 +1,215 @@
+@import 'tailwindcss';
+
+/* ===============================================================
+   نظام التصميم — «حبر وذهب»
+   القيم مطابقة لـ src/lib/design-tokens.ts (المصدر الوحيد للحقيقة)
+   =============================================================== */
+@theme {
+  /* الحبر */
+  --color-ink-950: #0a0a0c;
+  --color-ink-900: #111014;
+  --color-ink-800: #1a1820;
+  --color-ink-700: #26232d;
+  --color-ink-600: #3a3644;
+
+  /* الذهب */
+  --color-gold-300: #ebd9a5;
+  --color-gold-500: #c9a227;
+  --color-gold-700: #8a6d1f;
+  --color-copper: #b87333;
+
+  /* النصوص */
+  --color-ivory: #ede7da;
+  --color-ivory-dim: #9a9287;
+
+  /* أسطح القراءة الفاتحة */
+  --color-parchment: #f5efe2;
+  --color-sepia: #efe3cc;
+  --color-ink-on-light: #211e18;
+
+  /* الخطوط — تُحقن أسماء المتغيرات من next/font في layout.tsx */
+  --font-display: var(--font-amiri), 'Amiri', serif;
+  --font-body: var(--font-naskh), 'Noto Naskh Arabic', serif;
+  --font-body-alt: var(--font-plex-ar), 'IBM Plex Sans Arabic', sans-serif;
+  --font-latin: var(--font-cormorant), 'Cormorant Garamond', serif;
+  --font-ui: var(--font-inter), system-ui, sans-serif;
+
+  /* منحنيات الحركة */
+  --ease-luxe: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-page: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* تدرّجات الذهب — لا تُستخدم تعبئة ذهبية صلبة في المشروع */
+:root {
+  --grad-gold-surface: linear-gradient(135deg, #ebd9a5 0%, #c9a227 45%, #8a6d1f 100%);
+  --grad-gold-line: linear-gradient(90deg, transparent 0%, #c9a227 50%, transparent 100%);
+
+  /* أعماق ثلاثية الأبعاد */
+  --scene-perspective: 1600px;
+  --card-perspective: 900px;
+  --book-spine: 22px;
+
+  color-scheme: dark;
+}
+
+/* ===============================================================
+   الأساس
+   =============================================================== */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-ink-950);
+  color: var(--color-ivory);
+  font-family: var(--font-body);
+  /* نسيج ورقي خافت جداً — يمنع الإحساس بأن الخلفية بلاستيكية */
+  background-image: radial-gradient(
+    ellipse 80% 60% at 50% -10%,
+    rgba(201, 162, 39, 0.07) 0%,
+    transparent 70%
+  );
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: rgba(201, 162, 39, 0.28);
+  color: var(--color-gold-300);
+}
+
+/* شريط تمرير أنيق */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink-900);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink-600);
+  border-radius: 999px;
+  border: 2px solid var(--color-ink-900);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-700);
+}
+
+/* حلقة تركيز واضحة — إمكانية وصول غير قابلة للتفاوض */
+:focus-visible {
+  outline: 2px solid var(--color-gold-500);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ===============================================================
+   أدوات مساعدة
+   =============================================================== */
+
+/* نص بتدرّج ذهبي */
+.text-gold-gradient {
+  background-image: var(--grad-gold-surface);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* خط فاصل ذهبي يتلاشى من الطرفين */
+.rule-gold {
+  height: 1px;
+  background-image: var(--grad-gold-line);
+  border: 0;
+}
+
+/* حبيبات نسيج فوق أي سطح */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* مشهد ثلاثي الأبعاد */
+.scene-3d {
+  perspective: var(--scene-perspective);
+  perspective-origin: 50% 45%;
+}
+.card-3d {
+  perspective: var(--card-perspective);
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* لمعة تمرّ على النص كل ٦ ثوانٍ */
+@keyframes shimmer-sweep {
+  0%,
+  70% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -100% center;
+  }
+}
+.shimmer {
+  background-image: linear-gradient(
+    100deg,
+    #c9a227 20%,
+    #ebd9a5 38%,
+    #fff8e1 48%,
+    #ebd9a5 58%,
+    #c9a227 76%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer-sweep 6s var(--ease-smooth) infinite;
+}
+
+/* منع تحديد النص ونسخه في وضع الكتاب */
+.no-select {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* ===============================================================
+   احترام تفضيل تقليل الحركة — الفخامة تشمل من لا يتحمّل الحركة
+   =============================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===============================================================
+   الطباعة ممنوعة — طبقة حماية للمحتوى
+   =============================================================== */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  body::after {
+    content: 'هذا العمل ملك للمهندس عصام السالم — جميع الحقوق محفوظة.';
+    visibility: visible;
+    display: block;
+    font-family: serif;
+    padding: 4rem;
+    text-align: center;
+  }
+}
