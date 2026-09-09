@@ -13,7 +13,12 @@ import type { BookIndex, IndexBlock } from '@/lib/search';
  */
 
 export const dynamic = 'force-static';
-export const dynamicParams = false;
+/*
+ * الكتب المعروفة وقت البناء تُولَّد مسبقاً، وما يُضاف بعده من لوحة
+ * الإدارة يُولَّد عند أوّل طلب ثم يُخزَّن — لولا ذلك لظهر الكتاب في
+ * المكتبة وغاب عن البحث حتى إعادة البناء.
+ */
+export const dynamicParams = true;
 
 export function generateStaticParams() {
   return getBookSlugs().map((slug) => ({ slug }));
@@ -23,6 +28,10 @@ const KIND: Record<string, IndexBlock[1]> = { p: 0, h: 1, s: 2 };
 
 export async function GET(_request: Request, { params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  // مع `dynamicParams` مفتوحاً يصل إلينا أي slug — والمحذوف منها يجب
+  // أن يُردّ بـ 404 لا أن يرمي عند قراءة ملف غير موجود
+  if (!getBookSlugs().includes(slug)) return new Response('Not found', { status: 404 });
+
   const meta = getBookMeta(slug);
 
   const blocks: IndexBlock[] = [];

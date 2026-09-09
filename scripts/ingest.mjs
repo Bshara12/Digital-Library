@@ -27,6 +27,13 @@ const BOOKS_DIR = path.join(ROOT, 'books');
 const OUT_DIR = path.join(ROOT, 'content');
 const PDF_OUT_DIR = path.join(ROOT, 'public', 'books');
 const REPORT_ONLY = process.argv.includes('--report-only');
+/**
+ * `--json` : يطبع سطراً أخيراً بصيغة JSON بحصيلة كل كتاب (نجح/فشل).
+ * تستعمله لوحة الإدارة لتعرف إن نجح الكتاب الذي رفعه المستخدم تحديداً،
+ * بدل قراءة السجلّ البشري. لا أثر له على المخرجات الأخرى.
+ */
+const JSON_REPORT = process.argv.includes('--json');
+const JSON_MARKER = '@@INGEST_JSON@@';
 
 /** كلمات الصفحة المولّدة — قريبة من متوسّط صفحة الكتاب المطبوع */
 const WORDS_PER_PAGE = 150;
@@ -375,6 +382,7 @@ function main() {
   console.log(`\n[*] استخراج ${BOOKS.length} كتب من ملفات Word...\n`);
 
   const results = [];
+  const failures = [];
   for (const entry of BOOKS.slice().sort((a, b) => a.order - b.order)) {
     process.stdout.write(`   - ${entry.docx} ... `);
     try {
@@ -386,6 +394,7 @@ function main() {
           (result.meta.pdf ? '' : ' | (لا ملف PDF)')
       );
     } catch (err) {
+      failures.push({ slug: entry.slug, docx: entry.docx, error: err.message });
       console.log(`FAILED: ${err.message}`);
     }
   }
@@ -407,6 +416,25 @@ function main() {
   }
 
   writeReport(results);
+
+  if (JSON_REPORT) {
+    console.log(
+      JSON_MARKER +
+        JSON.stringify({
+          ok: failures.length === 0,
+          written: !REPORT_ONLY,
+          books: results.map((r) => ({
+            slug: r.meta.slug,
+            title: r.meta.title,
+            pageCount: r.meta.pageCount,
+            wordCount: r.meta.wordCount,
+            chapterCount: r.meta.chapters.length,
+            hasPdf: r.meta.pdf !== null,
+          })),
+          failures,
+        })
+    );
+  }
 }
 
 /* ---------------------------------------------------------------
