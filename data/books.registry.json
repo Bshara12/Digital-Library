@@ -20,18 +20,6 @@
     "order": 2
   },
   {
-    "docx": "🧠 قلب الميزة.docx",
-    "slug": "12",
-    "accent": "#0084FF",
-    "tags": [
-      "ai"
-    ],
-    "order": 2,
-    "overrides": {
-      "title": "الذكاء الاصطناعي"
-    }
-  },
-  {
     "docx": "الثنائية الكونية والشيول.docx",
     "slug": "cosmic-duality-sheol",
     "accent": "#2A2340",
