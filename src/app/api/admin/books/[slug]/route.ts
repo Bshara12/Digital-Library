@@ -25,7 +25,12 @@ import {
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-export const maxDuration = 300;
+/*
+ * ٦٠ ثانية — أقصى ما تسمح به خطة Hobby المجانية (الافتراضي عندها
+ * ١٠ ثوانٍ وحدها، وهي لا تكفي لرفع ملف وإيداعه). القيمة صالحة على
+ * كل الخطط، وتجاوزها يُفشل البناء على Vercel لا وقت التشغيل.
+ */
+export const maxDuration = 60;
 
 type Params = { params: Promise<{ slug: string }> };
 

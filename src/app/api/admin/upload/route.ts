@@ -16,6 +16,12 @@ import { getStore, StoreUnavailableError } from '@/lib/admin/store';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+/*
+ * ٦٠ ثانية — أقصى ما تسمح به خطة Hobby المجانية (الافتراضي عندها
+ * ١٠ ثوانٍ وحدها، وهي لا تكفي لرفع ملف وإيداعه). القيمة صالحة على
+ * كل الخطط، وتجاوزها يُفشل البناء على Vercel لا وقت التشغيل.
+ */
+export const maxDuration = 60;
 
 /** أكبر من هذا يرفضه Vercel قبل أن يصل إلينا — المتصفّح يقسّم دونه */
 const MAX_CHUNK_BYTES = 4 * 1024 * 1024;

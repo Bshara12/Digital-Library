@@ -27,8 +27,12 @@ import {
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-/** الاستخراج ثم الإيداع على GitHub قد يستغرق عشرات الثواني لكتاب كبير */
-export const maxDuration = 300;
+/*
+ * ٦٠ ثانية — أقصى ما تسمح به خطة Hobby المجانية (الافتراضي عندها
+ * ١٠ ثوانٍ وحدها، وهي لا تكفي لرفع ملف وإيداعه). القيمة صالحة على
+ * كل الخطط، وتجاوزها يُفشل البناء على Vercel لا وقت التشغيل.
+ */
+export const maxDuration = 60;
 
 interface AddBody {
   [key: string]: unknown;

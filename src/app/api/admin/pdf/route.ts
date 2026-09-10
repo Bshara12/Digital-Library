@@ -18,8 +18,12 @@ import { runPdfExport, withPipelineLock } from '@/lib/admin/pipeline';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
-/** تحويل مكتبة كاملة عبر Word قد يطول */
-export const maxDuration = 600;
+/*
+ * ٦٠ ثانية — أقصى ما تسمح به خطة Hobby المجانية (الافتراضي عندها
+ * ١٠ ثوانٍ وحدها، وهي لا تكفي لرفع ملف وإيداعه). القيمة صالحة على
+ * كل الخطط، وتجاوزها يُفشل البناء على Vercel لا وقت التشغيل.
+ */
+export const maxDuration = 60;
 
 export async function POST() {
   if (!(await isAuthenticated())) {
