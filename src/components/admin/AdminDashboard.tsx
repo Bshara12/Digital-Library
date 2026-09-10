@@ -30,15 +30,21 @@ export interface AdminBook {
   extracted: boolean;
 }
 
-export type Notice = { kind: 'ok' | 'error'; text: string } | null;
+export type Notice = { kind: 'ok' | 'error'; text: string; link?: string } | null;
 
 export function AdminDashboard({
   books,
   usingDefaultPassword,
+  storage,
+  canGeneratePdf,
 }: {
   books: AdminBook[];
   usingDefaultPassword: boolean;
+  /** أين تُحفظ التغييرات: قرص الجهاز أم مستودع GitHub */
+  storage: 'local' | 'github';
+  canGeneratePdf: boolean;
 }) {
+  const deploys = storage === 'github';
   const router = useRouter();
   const [notice, setNotice] = useState<Notice>(null);
   const [pdfBusy, setPdfBusy] = useState(false);
@@ -90,7 +96,8 @@ export function AdminDashboard({
         <div>
           <h1 className="font-display text-4xl text-gold-300">لوحة الإدارة</h1>
           <p className="mt-2 font-ui text-[0.78rem] text-ivory-dim">
-            {books.length} كتاباً في المكتبة
+            {books.length} كتاباً في المكتبة —{' '}
+            {deploys ? 'التغييرات تُودَع في مستودع GitHub' : 'التغييرات تُحفظ على هذا الجهاز'}
           </p>
         </div>
         <div className="flex items-center gap-4 font-ui text-[0.72rem] tracking-[0.14em]">
@@ -106,15 +113,16 @@ export function AdminDashboard({
 
       {usingDefaultPassword && (
         <p className="mt-6 rounded border border-copper/40 bg-copper/10 px-4 py-3 font-ui text-[0.75rem] leading-relaxed text-ivory-dim">
-          <span className="text-copper">تنبيه:</span> كلمة السرّ الافتراضية{' '}
-          <code dir="ltr">123456</code> مستعملة. مناسبة للتشغيل على جهازك — لكن إن نشرت اللوحة على
-          الإنترنت فاضبط <code dir="ltr">ADMIN_PASSWORD</code> في ملف{' '}
-          <code dir="ltr">.env.local</code>.
+          <span className="text-copper">{deploys ? 'خطر:' : 'تنبيه:'}</span> كلمة السرّ الافتراضية{' '}
+          <code dir="ltr">123456</code> مستعملة.{' '}
+          {deploys
+            ? 'اللوحة منشورة على الإنترنت ويستطيع أي أحد تخمينها والكتابة على مستودعك — اضبط ADMIN_PASSWORD في متغيّرات البيئة على Vercel فوراً.'
+            : 'مناسبة للتشغيل على جهازك — لكن إن نشرت اللوحة على الإنترنت فاضبط ADMIN_PASSWORD.'}
         </p>
       )}
 
       {notice && (
-        <p
+        <div
           role="status"
           className={`mt-6 whitespace-pre-line rounded border px-4 py-3 font-ui text-[0.78rem] leading-relaxed ${
             notice.kind === 'ok'
@@ -123,11 +131,26 @@ export function AdminDashboard({
           }`}
         >
           {notice.text}
-        </p>
+          {notice.link && (
+            <>
+              {' '}
+              <a
+                href={notice.link}
+                target="_blank"
+                rel="noreferrer"
+                className="underline underline-offset-4"
+              >
+                عرض الإيداع ↗
+              </a>
+            </>
+          )}
+        </div>
       )}
 
       <AddBookForm
         suggestedOrder={books.reduce((max, book) => Math.max(max, book.order), 0) + 1}
+        offerPdfUpload={!canGeneratePdf}
+        deploys={deploys}
         onDone={(message) => {
           setNotice(message);
           refresh();
@@ -137,16 +160,25 @@ export function AdminDashboard({
       <section className="mt-14">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="font-display text-2xl text-gold-300">الكتب</h2>
-          <button
-            onClick={generatePdfs}
-            disabled={pdfBusy}
-            title="يحتاج Microsoft Word على ويندوز أو LibreOffice على غيره"
-            className="rounded border border-ink-600 px-4 py-2 font-ui text-[0.72rem] tracking-[0.1em] text-ivory-dim transition-colors hover:border-gold-700 hover:text-gold-300 disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            {pdfBusy
-              ? 'جارٍ التوليد...'
-              : `توليد ملفات التنزيل${missingPdf ? ` (${missingPdf} ناقص)` : ''}`}
-          </button>
+          {canGeneratePdf ? (
+            <button
+              onClick={generatePdfs}
+              disabled={pdfBusy}
+              title="يحتاج Microsoft Word على ويندوز أو LibreOffice على غيره"
+              className="rounded border border-ink-600 px-4 py-2 font-ui text-[0.72rem] tracking-[0.1em] text-ivory-dim transition-colors hover:border-gold-700 hover:text-gold-300 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              {pdfBusy
+                ? 'جارٍ التوليد...'
+                : `توليد ملفات التنزيل${missingPdf ? ` (${missingPdf} ناقص)` : ''}`}
+            </button>
+          ) : (
+            missingPdf > 0 && (
+              <span className="font-ui text-[0.7rem] text-ivory-dim/70">
+                {missingPdf} كتاباً بلا ملف تنزيل — يُرفع مع الكتاب أو يُولَّد محلياً بـ{' '}
+                <code dir="ltr">npm run pdf</code>
+              </span>
+            )
+          )}
         </div>
 
         <ul className="mt-6 space-y-3">
@@ -154,6 +186,7 @@ export function AdminDashboard({
             <BookRow
               key={book.slug}
               book={book}
+              deploys={deploys}
               onDone={(message) => {
                 setNotice(message);
                 refresh();

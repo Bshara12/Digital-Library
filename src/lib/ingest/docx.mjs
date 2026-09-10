@@ -5,13 +5,15 @@
  * خارجية: نفكّ الأرشيف بـ zlib (المضمّن في Node) ونقرأ الفقرات
  * بمطابقة نصّية مباشرة على XML.
  *
+ * الوحدة تعمل على بايتات في الذاكرة ولا تلمس نظام الملفات، فتصلح
+ * للسكربتات وللوحة الإدارة على حدّ سواء.
+ *
  * لماذا docx وليس PDF؟ الـ PDF ناتج طباعة: يُخرج نصاً مشوّهاً
  * (رباط لام-ألف، تطويل محاذاة مُقحم داخل الكلمات، فواصل أسطر
  * عشوائية). الـ docx هو النصّ الذي كتبه المؤلف فعلاً — نظيف،
  * ويحمل تنسيق العناوين بنفسه.
  */
 
-import fs from 'node:fs';
 import { inflateRawSync } from 'node:zlib';
 
 /* ---------------------------------------------------------------
@@ -25,8 +27,8 @@ const EOCD_SIG = 0x06054b50;
 const CEN_SIG = 0x02014b50;
 
 /** @returns {Map<string, Buffer>} اسم الملف داخل الأرشيف ← محتواه */
-function unzip(filePath) {
-  const buf = fs.readFileSync(filePath);
+function unzip(bytes) {
+  const buf = Buffer.isBuffer(bytes) ? bytes : Buffer.from(bytes);
 
   // نبحث عن ترويسة النهاية من آخر الملف (قد يتبعها تعليق بطول ≤ 64KB)
   let eocd = -1;
@@ -130,9 +132,14 @@ function paragraphProps(xml) {
  * فقرات المستند بالترتيب، مع خصائص تنسيقها.
  * فقرات الجداول مشمولة (تظهر ضمن نفس التسلسل) — والترويسة والتذييل
  * ليستا من `document.xml` أصلاً فتُستثنيان تلقائياً.
+ *
+ * المدخل بايتات لا مسار ملف: لوحة الإدارة تعالج ملفاً مرفوعاً في
+ * الذاكرة، وعلى Vercel لا نظام ملفات قابلاً للكتابة أصلاً.
+ *
+ * @param {Buffer|Uint8Array} bytes محتوى ملف .docx
  */
-export function readDocx(filePath) {
-  const files = unzip(filePath);
+export function readDocxBuffer(bytes) {
+  const files = unzip(bytes);
   const document = files.get('word/document.xml');
   if (!document) throw new Error('لا يحتوي الملف على word/document.xml');
 

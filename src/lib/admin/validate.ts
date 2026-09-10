@@ -73,6 +73,7 @@ export function parseOverrides(input: {
   title?: unknown;
   subtitle?: unknown;
   description?: unknown;
+  [key: string]: unknown;
 }): RegistryOverrides | undefined {
   const overrides: RegistryOverrides = {};
 
@@ -109,5 +110,39 @@ export function safeDocxName(originalName: string, slug: string): string {
 export function assertUniqueSlug(entries: RegistryEntry[], slug: string, ignore?: string): void {
   if (entries.some((entry) => entry.slug === slug && entry.slug !== ignore)) {
     throw new ValidationError(`المعرّف «${slug}» مستعمل من كتاب آخر.`);
+  }
+}
+
+/** أوّل رقم ترتيب غير مستعمل — القيمة الافتراضية لكتاب جديد */
+export function nextOrderOf(entries: RegistryEntry[]): number {
+  return entries.reduce((max, entry) => Math.max(max, entry.order), 0) + 1;
+}
+
+/* ---------------------------------------------------------------
+   التحقّق من الملفات المرفوعة
+   ---------------------------------------------------------------
+   الامتداد وحده لا يكفي: نتحقّق من البصمة في أوّل بايتات الملف.
+   ملف .docx أرشيف ZIP، وملف PDF يبدأ بـ %PDF. رفع ملف مزيّف لا
+   يخترق شيئاً هنا (لا ننفّذه) لكنه ينتج كتاباً فارغاً ورسالة خطأ
+   غامضة، والرسالة الصريحة أنفع.
+*/
+
+/** أكبر كتاب في المكتبة ٤.٨ م.ب — الحدّ فسحة معقولة فوقه */
+export const MAX_UPLOAD_BYTES = 40 * 1024 * 1024;
+
+export function assertDocx(bytes: Buffer): void {
+  if (bytes.length === 0) throw new ValidationError('ملف Word فارغ.');
+  if (bytes.length > MAX_UPLOAD_BYTES) throw new ValidationError('ملف Word أكبر من ٤٠ م.ب.');
+  // بصمة ZIP: PK
+  if (!(bytes[0] === 0x50 && bytes[1] === 0x4b && bytes[2] === 0x03 && bytes[3] === 0x04)) {
+    throw new ValidationError('الملف ليس مستند Word صالحاً (.docx) — لا .doc ولا .pdf.');
+  }
+}
+
+export function assertPdf(bytes: Buffer): void {
+  if (bytes.length === 0) throw new ValidationError('ملف PDF فارغ.');
+  if (bytes.length > MAX_UPLOAD_BYTES) throw new ValidationError('ملف PDF أكبر من ٤٠ م.ب.');
+  if (bytes.subarray(0, 4).toString('latin1') !== '%PDF') {
+    throw new ValidationError('الملف ليس PDF صالحاً.');
   }
 }

@@ -2,18 +2,19 @@
  * توليد ملفات التنزيل — POST /api/admin/pdf
  * ===============================================================
  * يشغّل `scripts/export-pdf.mjs` (يتخطّى الملفات المحدَّثة أصلاً)
- * ثم يعيد الاستخراج ليُسجَّل حجم كل ملف في بيانات الكتاب — وهي
- * نفس الخطوتين الموصوفتين في README.
+ * ثم يعيد الاستخراج ليُسجَّل حجم كل ملف في بيانات الكتاب.
  *
- * يحتاج Microsoft Word على ويندوز أو LibreOffice على غيره. إن غاب
- * المحوّل نُبلّغ بذلك ولا نُفشل شيئاً آخر: الكتب تبقى مقروءة على
- * الموقع، وزرّ التنزيل وحده هو الذي لا يظهر.
+ * إجراء محلّي بطبيعته: التحويل يحتاج Microsoft Word (ويندوز) أو
+ * LibreOffice مثبّتاً على الجهاز. في وضع المستودع (Vercel) لا سبيل
+ * إلى ذلك، فالبديل رفع ملف PDF جاهز مع الكتاب من نموذج الإضافة.
  */
 
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { isAuthenticated } from '@/lib/admin/auth';
-import { runIngest, runPdfExport, withPipelineLock } from '@/lib/admin/pipeline';
+import { getStore, StoreUnavailableError } from '@/lib/admin/store';
+import { loadIndex } from '@/lib/admin/books-service';
+import { runPdfExport, withPipelineLock } from '@/lib/admin/pipeline';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -26,21 +27,32 @@ export async function POST() {
   }
 
   try {
-    const result = await withPipelineLock(async () => {
-      const pdf = await runPdfExport();
-      const ingest = await runIngest();
-      return { pdf, ingest };
-    });
+    const store = getStore();
+    if (!store.canGeneratePdf) {
+      return NextResponse.json(
+        {
+          error:
+            'توليد PDF يحتاج Word أو LibreOffice على الجهاز، وهو غير متاح في وضع النشر على ' +
+            'Vercel. ارفع ملف PDF جاهزاً مع الكتاب، أو ولّد الملفات محلياً بـ `npm run pdf` وارفعها.',
+        },
+        { status: 409 }
+      );
+    }
 
+    const result = await withPipelineLock(runPdfExport);
     revalidatePath('/', 'layout');
 
+    const index = await loadIndex(store);
     return NextResponse.json({
-      ok: result.pdf.ok,
-      message: result.pdf.message,
-      withPdf: result.ingest.books.filter((b) => b.hasPdf).length,
-      total: result.ingest.books.length,
+      ok: result.ok,
+      message: result.message,
+      withPdf: index.filter((book) => book.pdf).length,
+      total: index.length,
     });
   } catch (error) {
+    if (error instanceof StoreUnavailableError) {
+      return NextResponse.json({ error: error.message }, { status: 503 });
+    }
     console.error('[admin] فشل توليد PDF:', error);
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'خطأ غير متوقّع.' },

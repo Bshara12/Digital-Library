@@ -21,9 +21,12 @@ const megabytes = (bytes: number) => `${(bytes / 1048576).toFixed(1)} م.ب`;
 
 export function BookRow({
   book,
+  deploys,
   onDone,
 }: {
   book: AdminBook;
+  /** وضع المستودع: التغيير يظهر بعد إعادة النشر لا فوراً */
+  deploys: boolean;
   onDone: (notice: Notice) => void;
 }) {
   const [editing, setEditing] = useState(false);
@@ -47,13 +50,24 @@ export function BookRow({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tags, order, accent, title, subtitle, description }),
       });
-      const data = (await response.json().catch(() => ({}))) as { error?: string };
+      const data = (await response.json().catch(() => ({}))) as {
+        error?: string;
+        title?: string;
+        commitUrl?: string;
+        deploying?: boolean;
+      };
       if (!response.ok) {
         setError(data.error ?? 'تعذّر الحفظ.');
         return;
       }
       setEditing(false);
-      onDone({ kind: 'ok', text: `حُفظت تعديلات «${book.title}».` });
+      onDone({
+        kind: 'ok',
+        text:
+          `حُفظت تعديلات «${data.title ?? book.title}».` +
+          (data.deploying ? '\nVercel تُعيد النشر — يظهر التغيير خلال دقيقة أو دقيقتين.' : ''),
+        link: data.commitUrl,
+      });
     } catch {
       setError('تعذّر الاتصال بالخادم.');
     } finally {
@@ -66,7 +80,11 @@ export function BookRow({
     setError(null);
     try {
       const response = await fetch(`/api/admin/books/${book.slug}`, { method: 'DELETE' });
-      const data = (await response.json().catch(() => ({}))) as { error?: string };
+      const data = (await response.json().catch(() => ({}))) as {
+        error?: string;
+        commitUrl?: string;
+        deploying?: boolean;
+      };
       if (!response.ok) {
         setError(data.error ?? 'تعذّر الحذف.');
         setBusy(false);
@@ -74,7 +92,12 @@ export function BookRow({
       }
       onDone({
         kind: 'ok',
-        text: `حُذف «${book.title}». ملف Word محفوظ في books/_deleted/ إن أردت استرجاعه.`,
+        text:
+          `حُذف «${book.title}». ` +
+          (data.deploying
+            ? 'ملف Word باقٍ في تاريخ Git إن أردت استرجاعه.\nVercel تُعيد النشر الآن.'
+            : 'ملف Word محفوظ في books/_deleted/ إن أردت استرجاعه.'),
+        link: data.commitUrl,
       });
     } catch {
       setError('تعذّر الاتصال بالخادم.');
@@ -163,8 +186,14 @@ export function BookRow({
       {confirming && (
         <div className="mt-4 rounded border border-copper/50 bg-copper/10 p-4">
           <p className="font-ui text-[0.78rem] leading-relaxed text-ivory">
-            حذف «{book.title}» من المكتبة؟ يُمحى النصّ المستخرَج وملف التنزيل، ويُنقل ملف Word
-            الأصلي إلى <code dir="ltr">books/_deleted/</code> لا يُمحى.
+            حذف «{book.title}» من المكتبة؟ يُمحى النصّ المستخرَج وملف التنزيل.{' '}
+            {deploys ? (
+              <>ملف Word يبقى في تاريخ Git فيمكن استرجاعه منه.</>
+            ) : (
+              <>
+                ملف Word الأصلي يُنقل إلى <code dir="ltr">books/_deleted/</code> ولا يُمحى.
+              </>
+            )}
           </p>
           <div className="mt-4 flex gap-3">
             <button

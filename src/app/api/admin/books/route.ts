@@ -1,52 +1,71 @@
 /**
  * إضافة كتاب — POST /api/admin/books
  * ===============================================================
- * الخطوات بالترتيب، وكلّها قابلة للتراجع إن فشلت أي واحدة:
- *   1. تحقّق من المدخلات والملف
- *   2. حفظ ملف Word في books/
- *   3. تسجيل المدخلة في data/books.registry.json
- *   4. تشغيل scripts/ingest.mjs (نفس السكربت اليدوي)
- *   5. إن فشل استخراج هذا الكتاب تحديداً ⇒ تراجع كامل
- *   6. تفريغ ذاكرة الصفحات المولّدة ليظهر الكتاب فوراً
+ * الملف نفسه وصل قبل هذا الطلب على مقاطع عبر `/api/admin/upload`،
+ * فالجسم هنا خفيف: مراجع المقاطع وبيانات الكتاب. نجمع المقاطع،
+ * نستخرج النصّ بنواة `src/lib/ingest`، ثم نسلّم النتيجة إلى المخزن
+ * — يكتبها على القرص محلياً، أو يودعها في المستودع على Vercel.
  */
 
-import fs from 'node:fs';
-import path from 'node:path';
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { isAuthenticated } from '@/lib/admin/auth';
-import {
-  BOOKS_DIR,
-  RegistryEntry,
-  nextOrder,
-  readRegistry,
-  writeRegistry,
-} from '@/lib/admin/registry';
+import { getStore, StoreUnavailableError } from '@/lib/admin/store';
+import { addBook, loadRegistry } from '@/lib/admin/books-service';
 import {
   ValidationError,
-  assertUniqueSlug,
+  nextOrderOf,
   parseAccent,
   parseOrder,
   parseOverrides,
   parseSlug,
   parseTags,
   safeDocxName,
+  assertDocx,
+  assertPdf,
 } from '@/lib/admin/validate';
-import { runIngest, withPipelineLock } from '@/lib/admin/pipeline';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
+/** الاستخراج ثم الإيداع على GitHub قد يستغرق عشرات الثواني لكتاب كبير */
+export const maxDuration = 300;
 
-/** حدّ حجم ملف Word — أكبر كتاب في المكتبة أقلّ من ٥ م.ب */
-const MAX_DOCX_BYTES = 40 * 1024 * 1024;
-/** بصمة ZIP — ملف .docx هو أرشيف ZIP في حقيقته */
-const ZIP_MAGIC = [0x50, 0x4b, 0x03, 0x04];
+interface AddBody {
+  [key: string]: unknown;
+  slug?: unknown;
+  docxName?: unknown;
+  docxRefs?: unknown;
+  pdfRefs?: unknown;
+  accent?: unknown;
+  tags?: unknown;
+  order?: unknown;
+  title?: unknown;
+  subtitle?: unknown;
+  description?: unknown;
+}
+
+function parseRefs(value: unknown, label: string): string[] {
+  if (!Array.isArray(value) || value.length === 0) {
+    throw new ValidationError(`${label}: لم يصل الملف. أعد اختياره وحاول مجدداً.`);
+  }
+  if (value.some((ref) => typeof ref !== 'string' || ref.length === 0 || ref.length > 200)) {
+    throw new ValidationError(`${label}: مراجع الرفع غير صالحة.`);
+  }
+  return value as string[];
+}
 
 export async function GET() {
   if (!(await isAuthenticated())) {
     return NextResponse.json({ error: 'غير مصرّح.' }, { status: 401 });
   }
-  return NextResponse.json({ books: readRegistry() });
+  try {
+    return NextResponse.json({ books: await loadRegistry(getStore()) });
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'خطأ غير متوقّع.' },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(request: Request) {
@@ -55,74 +74,44 @@ export async function POST(request: Request) {
   }
 
   try {
-    const form = await request.formData();
-    const file = form.get('docx');
+    const store = getStore();
+    const body = (await request.json()) as AddBody;
 
-    if (!(file instanceof File) || file.size === 0) {
-      throw new ValidationError('ارفع ملف Word (.docx) الخاصّ بالكتاب.');
-    }
-    if (!/\.docx$/i.test(file.name)) {
-      throw new ValidationError('الصيغة المدعومة هي .docx فقط — لا .doc ولا .pdf.');
-    }
-    if (file.size > MAX_DOCX_BYTES) {
-      throw new ValidationError('الملف أكبر من ٤٠ م.ب.');
-    }
+    const slug = parseSlug(body.slug);
+    const docxBytes = await store.assembleChunks(parseRefs(body.docxRefs, 'ملف Word'));
+    assertDocx(docxBytes);
 
-    const bytes = Buffer.from(await file.arrayBuffer());
-    if (!ZIP_MAGIC.every((byte, i) => bytes[i] === byte)) {
-      throw new ValidationError('الملف ليس مستند Word صالحاً (.docx).');
-    }
+    const pdfBytes = body.pdfRefs
+      ? await store.assembleChunks(parseRefs(body.pdfRefs, 'ملف PDF'))
+      : null;
+    if (pdfBytes) assertPdf(pdfBytes);
 
-    const registry = readRegistry();
-    const slug = parseSlug(form.get('slug'));
-    assertUniqueSlug(registry, slug);
+    const registry = await loadRegistry(store);
 
-    const entry: RegistryEntry = {
-      docx: safeDocxName(file.name, slug),
-      slug,
-      accent: parseAccent(form.get('accent')),
-      tags: parseTags(form.get('tags')),
-      order: parseOrder(form.get('order'), nextOrder(registry)),
-      overrides: parseOverrides({
-        title: form.get('title'),
-        subtitle: form.get('subtitle'),
-        description: form.get('description'),
-      }),
-    };
+    const result = await addBook(
+      store,
+      {
+        slug,
+        docx: safeDocxName(String(body.docxName ?? ''), slug),
+        accent: parseAccent(body.accent),
+        tags: parseTags(body.tags),
+        order: parseOrder(body.order, nextOrderOf(registry)),
+        overrides: parseOverrides(body),
+      },
+      docxBytes,
+      pdfBytes
+    );
 
-    if (registry.some((b) => b.docx === entry.docx)) {
-      throw new ValidationError(
-        `يوجد كتاب آخر بملف باسم «${entry.docx}». غيّر اسم الملف قبل الرفع.`
-      );
-    }
+    // محلياً الملفات جاهزة فوراً؛ على Vercel تُعيد إعادة النشر البناء
+    if (!result.deploying) revalidatePath('/', 'layout');
 
-    const result = await withPipelineLock(async () => {
-      const target = path.join(BOOKS_DIR, entry.docx);
-      fs.mkdirSync(BOOKS_DIR, { recursive: true });
-      fs.writeFileSync(target, bytes);
-
-      try {
-        writeRegistry([...registry, entry]);
-        const ingest = await runIngest();
-        const failure = ingest.failures.find((f) => f.slug === slug);
-        if (failure) throw new ValidationError(`تعذّر استخراج نصّ الكتاب: ${failure.error}`);
-        return ingest;
-      } catch (error) {
-        // تراجع: لا نترك ملفاً يتيماً ولا مدخلة معطوبة في السجلّ
-        writeRegistry(registry);
-        fs.rmSync(target, { force: true });
-        await runIngest().catch(() => undefined);
-        throw error;
-      }
-    });
-
-    revalidatePath('/', 'layout');
-
-    const book = result.books.find((b) => b.slug === slug);
-    return NextResponse.json({ ok: true, slug, book }, { status: 201 });
+    return NextResponse.json({ ok: true, ...result }, { status: 201 });
   } catch (error) {
     if (error instanceof ValidationError) {
       return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+    if (error instanceof StoreUnavailableError) {
+      return NextResponse.json({ error: error.message }, { status: 503 });
     }
     console.error('[admin] فشل إضافة كتاب:', error);
     return NextResponse.json(

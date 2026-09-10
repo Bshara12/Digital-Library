@@ -1,37 +1,20 @@
 /**
- * تشغيل خطّ المعالجة من لوحة الإدارة
+ * تشغيل سكربتات المشروع — الوضع المحلي وحده
  * ===============================================================
- * اللوحة لا تعيد كتابة منطق الاستخراج، بل تشغّل السكربتات نفسها
- * التي يشغّلها `npm run ingest` و `npm run pdf`. هذا مقصود: خطّ
- * معالجة واحد لا اثنان، فما يظهر بعد الرفع من اللوحة يطابق تماماً
- * ما ينتج من سطر الأوامر، ولا يتفرّع السلوك مع الوقت.
+ * الاستخراج نفسه لم يعد يمرّ من هنا: لوحة الإدارة تستورد نواة
+ * `src/lib/ingest/core.mjs` وتعالج الملف في الذاكرة، فتعمل على
+ * Vercel كما تعمل على جهازك.
  *
- * الاستخراج الكامل للمكتبة يستغرق أقلّ من ثانية (يقرأ الـ .docx
- * مباشرة بلا حزم خارجية)، فلا داعي لتعقيد الاستخراج الجزئي —
- * التوليد الكامل يضمن أن `content/index.json` متّسق دائماً.
+ * ما بقي هنا هو ما لا يمكن أن يعمل إلا على جهاز حقيقي: تحويل Word
+ * إلى PDF. يحتاج Microsoft Word (ويندوز) أو LibreOffice مثبّتاً،
+ * ولا وجود لهما على Vercel — ولهذا يخفي المخزن هذا الإجراء هناك
+ * (`Store.canGeneratePdf`).
  */
 
 import path from 'node:path';
 import { execFile } from 'node:child_process';
-import { ROOT } from './registry';
 
-export interface IngestBook {
-  slug: string;
-  title: string;
-  pageCount: number;
-  wordCount: number;
-  chapterCount: number;
-  hasPdf: boolean;
-}
-
-export interface IngestResult {
-  ok: boolean;
-  written: boolean;
-  books: IngestBook[];
-  failures: { slug: string; docx: string; error: string }[];
-}
-
-const JSON_MARKER = '@@INGEST_JSON@@';
+const ROOT = process.cwd();
 
 function run(
   script: string,
@@ -56,49 +39,38 @@ function run(
   });
 }
 
-/** يعيد توليد `content/` كاملاً من السجلّ الحالي */
-export async function runIngest(): Promise<IngestResult> {
-  const { stdout, stderr, code } = await run('ingest.mjs', ['--json'], 120_000);
-
-  const line = stdout
-    .split(/\r?\n/)
-    .reverse()
-    .find((l) => l.startsWith(JSON_MARKER));
-
-  if (!line) {
-    throw new Error(
-      `تعذّر تشغيل الاستخراج (رمز ${code}). ${stderr.trim() || stdout.trim().slice(-400)}`
-    );
-  }
-  return JSON.parse(line.slice(JSON_MARKER.length)) as IngestResult;
-}
-
 export interface PdfResult {
   ok: boolean;
-  /** رسالة المحوّل — تُعرض كما هي لأن سببها غالباً بيئي (Word غير مثبّت) */
+  /** مخرجات المحوّل — تُعرض كما هي لأن سببها غالباً بيئي (Word غير مثبّت) */
   message: string;
 }
 
 /**
- * توليد ملفات التنزيل. يحتاج Microsoft Word على ويندوز أو
- * LibreOffice على غيره؛ إن غاب المحوّل نُرجع الفشل برسالته بدل
- * أن نرمي — فالكتاب يبقى صالحاً للقراءة على الموقع بلا ملف تنزيل.
+ * يولّد ملفات التنزيل الناقصة، ثم يعيد الاستخراج الكامل ليُسجَّل حجم
+ * كل ملف في بيانات الكتاب — وهما الخطوتان الموصوفتان في README.
+ * إعادة الاستخراج هنا تُنعش أيضاً `content/review/BOOKS-REVIEW.md`.
  */
 export async function runPdfExport(): Promise<PdfResult> {
-  const { code, stdout, stderr } = await run('export-pdf.mjs', [], 600_000);
-  const output = `${stdout}\n${stderr}`.trim();
+  const pdf = await run('export-pdf.mjs', [], 600_000);
+  const output = `${pdf.stdout}\n${pdf.stderr}`.trim();
+
+  if (pdf.code !== 0) {
+    return { ok: false, message: output.split(/\r?\n/).filter(Boolean).slice(-8).join('\n') };
+  }
+
+  const ingest = await run('ingest.mjs', [], 120_000);
   return {
-    ok: code === 0,
-    message: output.split(/\r?\n/).filter(Boolean).slice(-8).join('\n'),
+    ok: ingest.code === 0,
+    message: `${output}\n${ingest.stderr}`.split(/\r?\n/).filter(Boolean).slice(-8).join('\n'),
   };
 }
 
 /* ---------------------------------------------------------------
    قفل التسلسل
    ---------------------------------------------------------------
-   الاستخراج يمحو `content/books/` ثم يعيد كتابته. عمليتان متوازيتان
-   تتصادمان على القرص وتُنتجان محتوى ناقصاً، فنُسلسل كل عمليات
-   الكتابة على طابور واحد داخل العملية.
+   الاستخراج الكامل يمحو `content/books/` ثم يعيد كتابته. عمليتان
+   متوازيتان تتصادمان على القرص وتُنتجان محتوى ناقصاً، فنُسلسل
+   عمليات الكتابة على طابور واحد داخل العملية.
 */
 let queue: Promise<unknown> = Promise.resolve();
 

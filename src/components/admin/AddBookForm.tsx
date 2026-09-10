@@ -7,9 +7,14 @@
  * أو يُستخرج من الملف نفسه: العنوان والعنوان الفرعي والنبذة تُقرأ
  * من الغلاف والمقدّمة، ولا تُملأ هنا إلا حين يخطئ الغلاف. الـ slug
  * يُقترح من اسم الملف ويبقى قابلاً للتعديل قبل الرفع.
+ *
+ * الملف يُرفع على مقاطع قبل الحفظ (انظر `lib/admin/upload-client`)،
+ * ثم يُرسل الحفظ مراجع المقاطع مع بقية الحقول — طلب خفيف مهما كبر
+ * الكتاب.
  */
 
 import { useRef, useState } from 'react';
+import { uploadInChunks } from '@/lib/admin/upload-client';
 import type { Notice } from './AdminDashboard';
 
 /** ألوان الغلاف المستعملة في المكتبة — تُمزج مع الذهب */
@@ -34,45 +39,92 @@ function suggestSlug(fileName: string): string {
     .slice(0, 60);
 }
 
+const megabytes = (bytes: number) => `${(bytes / 1048576).toFixed(1)} م.ب`;
+
 const field =
   'mt-1.5 w-full rounded border border-ink-600 bg-ink-950 px-3 py-2 font-ui text-[0.82rem] text-ivory outline-none transition-colors focus:border-gold-700 placeholder:text-ivory-dim/50';
 const labelClass = 'block font-ui text-[0.68rem] tracking-[0.16em] text-ivory-dim';
 
 export function AddBookForm({
   suggestedOrder,
+  offerPdfUpload,
+  deploys,
   onDone,
 }: {
   suggestedOrder: number;
+  /** في وضع المستودع لا يمكن توليد PDF على الخادم، فنعرض رفعه */
+  offerPdfUpload: boolean;
+  /** هل يحتاج التغيير إعادة نشر حتى يظهر؟ */
+  deploys: boolean;
   onDone: (notice: Notice) => void;
 }) {
   const formRef = useRef<HTMLFormElement>(null);
   const [open, setOpen] = useState(false);
-  const [busy, setBusy] = useState(false);
+  const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [slug, setSlug] = useState('');
   const [accent, setAccent] = useState(ACCENTS[0]);
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [docx, setDocx] = useState<File | null>(null);
+  const [pdf, setPdf] = useState<File | null>(null);
 
-  function pickFile(event: React.ChangeEvent<HTMLInputElement>) {
+  const busy = status !== null;
+
+  function pickDocx(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) return;
-    setFileName(file.name);
+    setDocx(file);
     if (!slug) setSlug(suggestSlug(file.name));
   }
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setBusy(true);
-    setError(null);
+    if (!docx) {
+      setError('اختر ملف Word أولاً.');
+      return;
+    }
 
-    const body = new FormData(event.currentTarget);
-    body.set('accent', accent);
+    setError(null);
+    const form = new FormData(event.currentTarget);
 
     try {
-      const response = await fetch('/api/admin/books', { method: 'POST', body });
+      setStatus('جارٍ رفع ملف Word...');
+      const docxRefs = await uploadInChunks(docx, ({ sent, total }) =>
+        setStatus(total > 1 ? `جارٍ رفع ملف Word (${sent}/${total})...` : 'جارٍ رفع ملف Word...')
+      );
+
+      let pdfRefs: string[] | undefined;
+      if (pdf) {
+        setStatus('جارٍ رفع ملف التنزيل...');
+        pdfRefs = await uploadInChunks(pdf, ({ sent, total }) =>
+          setStatus(total > 1 ? `جارٍ رفع ملف التنزيل (${sent}/${total})...` : 'جارٍ رفع ملف التنزيل...')
+        );
+      }
+
+      setStatus('جارٍ استخراج النصّ والفهرس...');
+      const response = await fetch('/api/admin/books', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          slug,
+          docxName: docx.name,
+          docxRefs,
+          pdfRefs,
+          accent,
+          tags: form.get('tags'),
+          order: form.get('order'),
+          title: form.get('title'),
+          subtitle: form.get('subtitle'),
+          description: form.get('description'),
+        }),
+      });
+
       const data = (await response.json().catch(() => ({}))) as {
         error?: string;
-        book?: { title: string; pageCount: number; chapterCount: number };
+        title?: string;
+        pageCount?: number;
+        chapterCount?: number;
+        deploying?: boolean;
+        commitUrl?: string;
       };
 
       if (!response.ok) {
@@ -82,18 +134,22 @@ export function AddBookForm({
 
       formRef.current?.reset();
       setSlug('');
-      setFileName(null);
+      setDocx(null);
+      setPdf(null);
       setOpen(false);
       onDone({
         kind: 'ok',
-        text: data.book
-          ? `أُضيف «${data.book.title}» — ${data.book.pageCount} صفحة و ${data.book.chapterCount} فصلاً.`
-          : 'أُضيف الكتاب.',
+        text:
+          `أُضيف «${data.title}» — ${data.pageCount} صفحة و ${data.chapterCount} فصلاً.` +
+          (data.deploying
+            ? '\nحُفظ في المستودع، وVercel تُعيد النشر الآن — يظهر على الموقع خلال دقيقة أو دقيقتين.'
+            : ''),
+        link: data.commitUrl,
       });
-    } catch {
-      setError('تعذّر الاتصال بالخادم.');
+    } catch (uploadError) {
+      setError(uploadError instanceof Error ? uploadError.message : 'تعذّر الاتصال بالخادم.');
     } finally {
-      setBusy(false);
+      setStatus(null);
     }
   }
 
@@ -119,7 +175,8 @@ export function AddBookForm({
         <button
           type="button"
           onClick={() => setOpen(false)}
-          className="font-ui text-[0.72rem] text-ivory-dim transition-colors hover:text-copper"
+          disabled={busy}
+          className="font-ui text-[0.72rem] text-ivory-dim transition-colors hover:text-copper disabled:opacity-40"
         >
           إلغاء
         </button>
@@ -131,14 +188,12 @@ export function AddBookForm({
         <label className="mt-1.5 flex cursor-pointer items-center justify-center rounded border border-dashed border-ink-600 px-4 py-6 text-center transition-colors hover:border-gold-700">
           <input
             type="file"
-            name="docx"
             accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            required
-            onChange={pickFile}
+            onChange={pickDocx}
             className="sr-only"
           />
           <span className="font-ui text-[0.8rem] text-ivory-dim">
-            {fileName ?? 'اضغط لاختيار الملف'}
+            {docx ? `${docx.name} — ${megabytes(docx.size)}` : 'اضغط لاختيار الملف'}
           </span>
         </label>
       </div>
@@ -150,7 +205,6 @@ export function AddBookForm({
           </label>
           <input
             id="slug"
-            name="slug"
             required
             dir="ltr"
             value={slug}
@@ -213,6 +267,28 @@ export function AddBookForm({
         </div>
       </div>
 
+      {/* ملف التنزيل — يُرفع يدوياً حين يتعذّر توليده على الخادم */}
+      {offerPdfUpload && (
+        <div className="mt-6">
+          <span className={labelClass}>ملف التنزيل (PDF) — اختياري</span>
+          <label className="mt-1.5 flex cursor-pointer items-center justify-center rounded border border-dashed border-ink-600 px-4 py-4 text-center transition-colors hover:border-gold-700">
+            <input
+              type="file"
+              accept=".pdf,application/pdf"
+              onChange={(event) => setPdf(event.target.files?.[0] ?? null)}
+              className="sr-only"
+            />
+            <span className="font-ui text-[0.78rem] text-ivory-dim">
+              {pdf ? `${pdf.name} — ${megabytes(pdf.size)}` : 'اضغط لاختيار ملف PDF'}
+            </span>
+          </label>
+          <p className="mt-2 font-ui text-[0.68rem] leading-relaxed text-ivory-dim/70">
+            التحويل الآلي من Word يحتاج Word أو LibreOffice على الخادم، وهو غير متاح في وضع
+            النشر. بلا ملف PDF يبقى الكتاب مقروءاً على الموقع، ويغيب زرّ التنزيل وحده.
+          </p>
+        </div>
+      )}
+
       {/* التجاوزات — تُترك فارغة في الحالة العادية */}
       <details className="mt-6 rounded border border-ink-700 px-4 py-3">
         <summary className="cursor-pointer font-ui text-[0.75rem] text-ivory-dim">
@@ -253,15 +329,16 @@ export function AddBookForm({
 
       <button
         type="submit"
-        disabled={busy}
+        disabled={busy || !docx}
         className="mt-6 rounded bg-[image:var(--grad-gold-surface)] px-8 py-2.5 font-ui text-[0.8rem] font-semibold tracking-wide text-ink-950 transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
       >
-        {busy ? 'جارٍ الاستخراج...' : 'إضافة ومعالجة'}
+        {busy ? 'جارٍ العمل...' : 'إضافة ومعالجة'}
       </button>
 
-      {busy && (
-        <p className="mt-3 font-ui text-[0.72rem] text-ivory-dim">
-          يُقرأ النصّ ويُبنى الفهرس وتُولَّد الصفحات — بضع ثوانٍ.
+      {status && (
+        <p role="status" className="mt-3 font-ui text-[0.72rem] text-ivory-dim">
+          {status}
+          {deploys && ' سيُودَع التغيير في المستودع بعدها.'}
         </p>
       )}
     </form>

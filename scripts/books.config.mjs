@@ -38,5 +38,8 @@ export const REGISTRY_PATH = path.join(ROOT, 'data', 'books.registry.json');
  */
 export const BOOKS = JSON.parse(fs.readFileSync(REGISTRY_PATH, 'utf8'));
 
-/** اسم المؤلف كما يظهر في ترويسات الكتب — يُستعمل لتنظيف الترويسة */
-export const AUTHOR_NAME = 'عصام السالم';
+/**
+ * اسم المؤلف — يُعرَّف مرّة واحدة في نواة الاستخراج ويُعاد تصديره هنا
+ * ليبقى ما تستورده السكربتات كما كان.
+ */
+export { AUTHOR_NAME } from '../src/lib/ingest/author.mjs';
