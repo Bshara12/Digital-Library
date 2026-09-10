@@ -46,6 +46,25 @@
     "chapterCount": 22
   },
   {
+    "slug": "12",
+    "title": "الذكاء الاصطناعي",
+    "subtitle": "domain/ — النماذج النقية (لا فايربيز، لا واجهة، قابلة للاختبار وحدها) — الملف",
+    "author": "عصام السالم",
+    "sourceFile": "🧠 قلب الميزة.docx",
+    "accent": "#0084FF",
+    "tags": [
+      "ai"
+    ],
+    "order": 2,
+    "pageCount": 2,
+    "wordCount": 270,
+    "readingMinutes": 2,
+    "tocConfidence": "low",
+    "titleConflict": null,
+    "pdf": null,
+    "chapterCount": 0
+  },
+  {
     "slug": "cosmic-duality-sheol",
     "title": "الثنائية الكونية والشيول",
     "subtitle": null,
