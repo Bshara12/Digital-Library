@@ -46,6 +46,29 @@
     "chapterCount": 22
   },
   {
+    "slug": "the-disease-of-power",
+    "title": "داء السلطة",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "داء السلطة.docx",
+    "accent": "#33261A",
+    "tags": [
+      "سياسة",
+      "مجتمع"
+    ],
+    "order": 2,
+    "pageCount": 131,
+    "wordCount": 24563,
+    "readingMinutes": 149,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/the-disease-of-power.pdf",
+      "bytes": 1663659
+    },
+    "chapterCount": 12
+  },
+  {
     "slug": "cosmic-duality-sheol",
     "title": "الثنائية الكونية والشيول",
     "subtitle": null,
@@ -113,29 +136,6 @@
       "bytes": 4932547
     },
     "chapterCount": 40
-  },
-  {
-    "slug": "the-disease-of-power",
-    "title": "داء السلطة",
-    "subtitle": null,
-    "author": "عصام السالم",
-    "sourceFile": "داء السلطة.docx",
-    "accent": "#33261A",
-    "tags": [
-      "سياسة",
-      "مجتمع"
-    ],
-    "order": 6,
-    "pageCount": 131,
-    "wordCount": 24563,
-    "readingMinutes": 149,
-    "tocConfidence": "high",
-    "titleConflict": null,
-    "pdf": {
-      "path": "/books/the-disease-of-power.pdf",
-      "bytes": 1663659
-    },
-    "chapterCount": 12
   },
   {
     "slug": "levant-peoples",

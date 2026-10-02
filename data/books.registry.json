@@ -20,6 +20,16 @@
     "order": 2
   },
   {
+    "docx": "داء السلطة.docx",
+    "slug": "the-disease-of-power",
+    "accent": "#33261A",
+    "tags": [
+      "سياسة",
+      "مجتمع"
+    ],
+    "order": 2
+  },
+  {
     "docx": "الثنائية الكونية والشيول.docx",
     "slug": "cosmic-duality-sheol",
     "accent": "#2A2340",
@@ -51,16 +61,6 @@
       "مجتمع"
     ],
     "order": 5
-  },
-  {
-    "docx": "داء السلطة.docx",
-    "slug": "the-disease-of-power",
-    "accent": "#33261A",
-    "tags": [
-      "سياسة",
-      "مجتمع"
-    ],
-    "order": 6
   },
   {
     "docx": "سكان بلاد الشام والتواجد المسيحي.docx",
