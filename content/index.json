@@ -69,29 +69,6 @@
     "chapterCount": 29
   },
   {
-    "slug": "miracles-and-myths",
-    "title": "المعجزات والأساطير",
-    "subtitle": null,
-    "author": "عصام السالم",
-    "sourceFile": "المعجزات.docx",
-    "accent": "#14312F",
-    "tags": [
-      "أديان",
-      "أساطير"
-    ],
-    "order": 4,
-    "pageCount": 62,
-    "wordCount": 10865,
-    "readingMinutes": 66,
-    "tocConfidence": "high",
-    "titleConflict": null,
-    "pdf": {
-      "path": "/books/miracles-and-myths.pdf",
-      "bytes": 565884
-    },
-    "chapterCount": 11
-  },
-  {
     "slug": "levant-peoples",
     "title": "سكان بلاد الشام والوجود المسيحي",
     "subtitle": null,
@@ -155,6 +132,29 @@
     "titleConflict": null,
     "pdf": null,
     "chapterCount": 29
+  },
+  {
+    "slug": "miracles-and-myths",
+    "title": "المعجزات والأساطير",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "المعجزات.docx",
+    "accent": "#14312F",
+    "tags": [
+      "أديان",
+      "أساطير"
+    ],
+    "order": 5,
+    "pageCount": 62,
+    "wordCount": 10865,
+    "readingMinutes": 66,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/miracles-and-myths.pdf",
+      "bytes": 565884
+    },
+    "chapterCount": 11
   },
   {
     "slug": "cosmic-duality-sheol",

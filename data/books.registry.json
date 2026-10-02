@@ -34,19 +34,6 @@
     }
   },
   {
-    "docx": "المعجزات.docx",
-    "slug": "miracles-and-myths",
-    "accent": "#14312F",
-    "tags": [
-      "أديان",
-      "أساطير"
-    ],
-    "order": 4,
-    "overrides": {
-      "title": "المعجزات والأساطير"
-    }
-  },
-  {
     "docx": "سكان بلاد الشام والتواجد المسيحي.docx",
     "slug": "levant-peoples",
     "accent": "#2B2A1C",
@@ -57,6 +44,19 @@
     "order": 4,
     "overrides": {
       "title": "سكان بلاد الشام والوجود المسيحي"
+    }
+  },
+  {
+    "docx": "المعجزات.docx",
+    "slug": "miracles-and-myths",
+    "accent": "#14312F",
+    "tags": [
+      "أديان",
+      "أساطير"
+    ],
+    "order": 5,
+    "overrides": {
+      "title": "المعجزات والأساطير"
     }
   },
   {
