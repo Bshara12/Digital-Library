@@ -47,19 +47,6 @@
     }
   },
   {
-    "docx": "المعجزات.docx",
-    "slug": "miracles-and-myths",
-    "accent": "#14312F",
-    "tags": [
-      "أديان",
-      "أساطير"
-    ],
-    "order": 5,
-    "overrides": {
-      "title": "المعجزات والأساطير"
-    }
-  },
-  {
     "docx": "من آلهة وملوك إلى عبيد.docx",
     "slug": "from-gods-to-slaves",
     "accent": "#2E1B2C",
@@ -77,6 +64,19 @@
       "نقد ديني"
     ],
     "order": 5
+  },
+  {
+    "docx": "المعجزات.docx",
+    "slug": "miracles-and-myths",
+    "accent": "#14312F",
+    "tags": [
+      "أديان",
+      "أساطير"
+    ],
+    "order": 7,
+    "overrides": {
+      "title": "المعجزات والأساطير"
+    }
   },
   {
     "docx": "الثنائية الكونية والشيول.docx",
