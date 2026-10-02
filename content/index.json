@@ -46,29 +46,6 @@
     "chapterCount": 12
   },
   {
-    "slug": "cosmic-duality-sheol",
-    "title": "الثنائية الكونية والشيول",
-    "subtitle": null,
-    "author": "عصام السالم",
-    "sourceFile": "الثنائية الكونية والشيول.docx",
-    "accent": "#2A2340",
-    "tags": [
-      "أديان",
-      "حضارات قديمة"
-    ],
-    "order": 3,
-    "pageCount": 125,
-    "wordCount": 23026,
-    "readingMinutes": 140,
-    "tocConfidence": "high",
-    "titleConflict": null,
-    "pdf": {
-      "path": "/books/cosmic-duality-sheol.pdf",
-      "bytes": 1110109
-    },
-    "chapterCount": 21
-  },
-  {
     "slug": "the-conspiracy",
     "title": "المؤامرة",
     "subtitle": "دراسة تحليلية لنظرية المؤامرة والأحداث التي مرت على سوريا منذ تأسيسها",
@@ -178,6 +155,29 @@
     "titleConflict": null,
     "pdf": null,
     "chapterCount": 29
+  },
+  {
+    "slug": "cosmic-duality-sheol",
+    "title": "الثنائية الكونية والشيول",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "الثنائية الكونية والشيول.docx",
+    "accent": "#2A2340",
+    "tags": [
+      "أديان",
+      "حضارات قديمة"
+    ],
+    "order": 8,
+    "pageCount": 125,
+    "wordCount": 23026,
+    "readingMinutes": 140,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/cosmic-duality-sheol.pdf",
+      "bytes": 1110109
+    },
+    "chapterCount": 21
   },
   {
     "slug": "nephilim-anunnaki",

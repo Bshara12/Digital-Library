@@ -20,16 +20,6 @@
     "order": 2
   },
   {
-    "docx": "الثنائية الكونية والشيول.docx",
-    "slug": "cosmic-duality-sheol",
-    "accent": "#2A2340",
-    "tags": [
-      "أديان",
-      "حضارات قديمة"
-    ],
-    "order": 3
-  },
-  {
     "docx": "المؤامرة.docx",
     "slug": "the-conspiracy",
     "accent": "#3A1C22",
@@ -87,6 +77,16 @@
       "نقد ديني"
     ],
     "order": 5
+  },
+  {
+    "docx": "الثنائية الكونية والشيول.docx",
+    "slug": "cosmic-duality-sheol",
+    "accent": "#2A2340",
+    "tags": [
+      "أديان",
+      "حضارات قديمة"
+    ],
+    "order": 8
   },
   {
     "docx": "من النيفيليم إلى الأنوناكي والكائنات الغامضة.docx",
