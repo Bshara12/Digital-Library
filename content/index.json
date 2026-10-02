@@ -92,6 +92,29 @@
     "chapterCount": 21
   },
   {
+    "slug": "the-conspiracy",
+    "title": "المؤامرة",
+    "subtitle": "دراسة تحليلية لنظرية المؤامرة والأحداث التي مرت على سوريا منذ تأسيسها",
+    "author": "عصام السالم",
+    "sourceFile": "المؤامرة.docx",
+    "accent": "#3A1C22",
+    "tags": [
+      "سياسة",
+      "تاريخ معاصر"
+    ],
+    "order": 3,
+    "pageCount": 187,
+    "wordCount": 33532,
+    "readingMinutes": 203,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/the-conspiracy.pdf",
+      "bytes": 1282841
+    },
+    "chapterCount": 29
+  },
+  {
     "slug": "miracles-and-myths",
     "title": "المعجزات والأساطير",
     "subtitle": null,
@@ -159,29 +182,6 @@
       "bytes": 1542483
     },
     "chapterCount": 10
-  },
-  {
-    "slug": "the-conspiracy",
-    "title": "المؤامرة",
-    "subtitle": "دراسة تحليلية لنظرية المؤامرة والأحداث التي مرت على سوريا منذ تأسيسها",
-    "author": "عصام السالم",
-    "sourceFile": "المؤامرة.docx",
-    "accent": "#3A1C22",
-    "tags": [
-      "سياسة",
-      "تاريخ معاصر"
-    ],
-    "order": 8,
-    "pageCount": 187,
-    "wordCount": 33532,
-    "readingMinutes": 203,
-    "tocConfidence": "high",
-    "titleConflict": null,
-    "pdf": {
-      "path": "/books/the-conspiracy.pdf",
-      "bytes": 1282841
-    },
-    "chapterCount": 29
   },
   {
     "slug": "autorecovered",
