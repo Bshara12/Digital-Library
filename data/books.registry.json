@@ -10,16 +10,6 @@
     "order": 1
   },
   {
-    "docx": "من النيفيليم إلى الأنوناكي والكائنات الغامضة.docx",
-    "slug": "nephilim-anunnaki",
-    "accent": "#14203A",
-    "tags": [
-      "حضارات قديمة",
-      "أساطير"
-    ],
-    "order": 2
-  },
-  {
     "docx": "داء السلطة.docx",
     "slug": "the-disease-of-power",
     "accent": "#33261A",
@@ -97,5 +87,15 @@
       "نقد ديني"
     ],
     "order": 5
+  },
+  {
+    "docx": "من النيفيليم إلى الأنوناكي والكائنات الغامضة.docx",
+    "slug": "nephilim-anunnaki",
+    "accent": "#14203A",
+    "tags": [
+      "حضارات قديمة",
+      "أساطير"
+    ],
+    "order": 9
   }
 ]

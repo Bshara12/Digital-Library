@@ -23,29 +23,6 @@
     "chapterCount": 18
   },
   {
-    "slug": "nephilim-anunnaki",
-    "title": "من النيفيليم إلى الأنوناكي والكائنات الغامضة",
-    "subtitle": null,
-    "author": "عصام السالم",
-    "sourceFile": "من النيفيليم إلى الأنوناكي والكائنات الغامضة.docx",
-    "accent": "#14203A",
-    "tags": [
-      "حضارات قديمة",
-      "أساطير"
-    ],
-    "order": 2,
-    "pageCount": 99,
-    "wordCount": 17266,
-    "readingMinutes": 105,
-    "tocConfidence": "high",
-    "titleConflict": null,
-    "pdf": {
-      "path": "/books/nephilim-anunnaki.pdf",
-      "bytes": 867384
-    },
-    "chapterCount": 22
-  },
-  {
     "slug": "the-disease-of-power",
     "title": "داء السلطة",
     "subtitle": null,
@@ -201,5 +178,28 @@
     "titleConflict": null,
     "pdf": null,
     "chapterCount": 29
+  },
+  {
+    "slug": "nephilim-anunnaki",
+    "title": "من النيفيليم إلى الأنوناكي والكائنات الغامضة",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "من النيفيليم إلى الأنوناكي والكائنات الغامضة.docx",
+    "accent": "#14203A",
+    "tags": [
+      "حضارات قديمة",
+      "أساطير"
+    ],
+    "order": 9,
+    "pageCount": 99,
+    "wordCount": 17266,
+    "readingMinutes": 105,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/nephilim-anunnaki.pdf",
+      "bytes": 867384
+    },
+    "chapterCount": 22
   }
 ]
