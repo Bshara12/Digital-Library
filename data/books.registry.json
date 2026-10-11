@@ -66,6 +66,18 @@
     "order": 6
   },
   {
+    "docx": "الفساد السياسي.docx",
+    "slug": "my-new-book",
+    "accent": "#2B2A1C",
+    "tags": [
+      "ملفات",
+      "فساد",
+      "بالعالم العربي",
+      "والعالم"
+    ],
+    "order": 7
+  },
+  {
     "docx": "الثنائية الكونية والشيول.docx",
     "slug": "cosmic-duality-sheol",
     "accent": "#2A2340",

@@ -134,6 +134,31 @@
     "chapterCount": 40
   },
   {
+    "slug": "my-new-book",
+    "title": "الفساد السياسي",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "الفساد السياسي.docx",
+    "accent": "#2B2A1C",
+    "tags": [
+      "ملفات",
+      "فساد",
+      "بالعالم العربي",
+      "والعالم"
+    ],
+    "order": 7,
+    "pageCount": 282,
+    "wordCount": 55301,
+    "readingMinutes": 335,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/my-new-book.pdf",
+      "bytes": 1802741
+    },
+    "chapterCount": 20
+  },
+  {
     "slug": "cosmic-duality-sheol",
     "title": "الثنائية الكونية والشيول",
     "subtitle": null,
