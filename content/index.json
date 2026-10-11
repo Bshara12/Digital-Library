@@ -92,29 +92,6 @@
     "chapterCount": 10
   },
   {
-    "slug": "from-gods-to-slaves",
-    "title": "من آلهة وملوك إلى عبيد",
-    "subtitle": null,
-    "author": "عصام السالم",
-    "sourceFile": "من آلهة وملوك إلى عبيد.docx",
-    "accent": "#2E1B2C",
-    "tags": [
-      "تاريخ",
-      "مجتمع"
-    ],
-    "order": 5,
-    "pageCount": 135,
-    "wordCount": 25685,
-    "readingMinutes": 156,
-    "tocConfidence": "high",
-    "titleConflict": null,
-    "pdf": {
-      "path": "/books/from-gods-to-slaves.pdf",
-      "bytes": 4932547
-    },
-    "chapterCount": 40
-  },
-  {
     "slug": "autorecovered",
     "title": "صراع القداسة بين الدناسة",
     "subtitle": null,
@@ -132,6 +109,29 @@
     "titleConflict": null,
     "pdf": null,
     "chapterCount": 29
+  },
+  {
+    "slug": "from-gods-to-slaves",
+    "title": "من آلهة وملوك إلى عبيد",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "من آلهة وملوك إلى عبيد.docx",
+    "accent": "#1E2D1A",
+    "tags": [
+      "تاريخ",
+      "مجتمع"
+    ],
+    "order": 6,
+    "pageCount": 135,
+    "wordCount": 25685,
+    "readingMinutes": 156,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/from-gods-to-slaves.pdf",
+      "bytes": 4932547
+    },
+    "chapterCount": 40
   },
   {
     "slug": "miracles-and-myths",
