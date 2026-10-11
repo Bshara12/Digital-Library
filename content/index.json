@@ -134,29 +134,6 @@
     "chapterCount": 40
   },
   {
-    "slug": "miracles-and-myths",
-    "title": "المعجزات والأساطير",
-    "subtitle": null,
-    "author": "عصام السالم",
-    "sourceFile": "المعجزات.docx",
-    "accent": "#14312F",
-    "tags": [
-      "أديان",
-      "أساطير"
-    ],
-    "order": 7,
-    "pageCount": 62,
-    "wordCount": 10865,
-    "readingMinutes": 66,
-    "tocConfidence": "high",
-    "titleConflict": null,
-    "pdf": {
-      "path": "/books/miracles-and-myths.pdf",
-      "bytes": 565884
-    },
-    "chapterCount": 11
-  },
-  {
     "slug": "cosmic-duality-sheol",
     "title": "الثنائية الكونية والشيول",
     "subtitle": null,
@@ -201,5 +178,28 @@
       "bytes": 867384
     },
     "chapterCount": 22
+  },
+  {
+    "slug": "miracles-and-myths",
+    "title": "المعجزات والأساطير",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "المعجزات.docx",
+    "accent": "#14312F",
+    "tags": [
+      "أديان",
+      "أساطير"
+    ],
+    "order": 9,
+    "pageCount": 62,
+    "wordCount": 10865,
+    "readingMinutes": 66,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/miracles-and-myths.pdf",
+      "bytes": 565884
+    },
+    "chapterCount": 11
   }
 ]

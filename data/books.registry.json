@@ -66,19 +66,6 @@
     "order": 6
   },
   {
-    "docx": "المعجزات.docx",
-    "slug": "miracles-and-myths",
-    "accent": "#14312F",
-    "tags": [
-      "أديان",
-      "أساطير"
-    ],
-    "order": 7,
-    "overrides": {
-      "title": "المعجزات والأساطير"
-    }
-  },
-  {
     "docx": "الثنائية الكونية والشيول.docx",
     "slug": "cosmic-duality-sheol",
     "accent": "#2A2340",
@@ -87,6 +74,19 @@
       "حضارات قديمة"
     ],
     "order": 8
+  },
+  {
+    "docx": "المعجزات.docx",
+    "slug": "miracles-and-myths",
+    "accent": "#14312F",
+    "tags": [
+      "أديان",
+      "أساطير"
+    ],
+    "order": 9,
+    "overrides": {
+      "title": "المعجزات والأساطير"
+    }
   },
   {
     "docx": "من النيفيليم إلى الأنوناكي والكائنات الغامضة.docx",
