@@ -226,5 +226,27 @@
       "bytes": 867384
     },
     "chapterCount": 22
+  },
+  {
+    "slug": "my-new-book11",
+    "title": "تزييف التاريخ واجتزاء الحقيقة",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "تزييف التاريخ واجتزاء الحقيقة.docx",
+    "accent": "#2B2A1C",
+    "tags": [
+      "تاريخ"
+    ],
+    "order": 11,
+    "pageCount": 98,
+    "wordCount": 16841,
+    "readingMinutes": 102,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/my-new-book11.pdf",
+      "bytes": 913624
+    },
+    "chapterCount": 28
   }
 ]
