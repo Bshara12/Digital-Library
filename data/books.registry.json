@@ -68,16 +68,6 @@
     "order": 7
   },
   {
-    "docx": "الثنائية الكونية والشيول.docx",
-    "slug": "cosmic-duality-sheol",
-    "accent": "#2A2340",
-    "tags": [
-      "أديان",
-      "حضارات قديمة"
-    ],
-    "order": 8
-  },
-  {
     "docx": "من آلهة وملوك إلى عبيد.docx",
     "slug": "from-gods-to-slaves",
     "accent": "#1E2D1A",
@@ -99,6 +89,16 @@
     "overrides": {
       "title": "المعجزات والأساطير"
     }
+  },
+  {
+    "docx": "الثنائية الكونية والشيول.docx",
+    "slug": "cosmic-duality-sheol",
+    "accent": "#2A2340",
+    "tags": [
+      "أديان",
+      "حضارات قديمة"
+    ],
+    "order": 10
   },
   {
     "docx": "من النيفيليم إلى الأنوناكي والكائنات الغامضة.docx",

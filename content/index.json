@@ -136,29 +136,6 @@
     "chapterCount": 29
   },
   {
-    "slug": "cosmic-duality-sheol",
-    "title": "الثنائية الكونية والشيول",
-    "subtitle": null,
-    "author": "عصام السالم",
-    "sourceFile": "الثنائية الكونية والشيول.docx",
-    "accent": "#2A2340",
-    "tags": [
-      "أديان",
-      "حضارات قديمة"
-    ],
-    "order": 8,
-    "pageCount": 125,
-    "wordCount": 23026,
-    "readingMinutes": 140,
-    "tocConfidence": "high",
-    "titleConflict": null,
-    "pdf": {
-      "path": "/books/cosmic-duality-sheol.pdf",
-      "bytes": 1110109
-    },
-    "chapterCount": 21
-  },
-  {
     "slug": "miracles-and-myths",
     "title": "المعجزات والأساطير",
     "subtitle": null,
@@ -226,6 +203,29 @@
       "bytes": 867384
     },
     "chapterCount": 22
+  },
+  {
+    "slug": "cosmic-duality-sheol",
+    "title": "الثنائية الكونية والشيول",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "الثنائية الكونية والشيول.docx",
+    "accent": "#2A2340",
+    "tags": [
+      "أديان",
+      "حضارات قديمة"
+    ],
+    "order": 10,
+    "pageCount": 125,
+    "wordCount": 23026,
+    "readingMinutes": 140,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/cosmic-duality-sheol.pdf",
+      "bytes": 1110109
+    },
+    "chapterCount": 21
   },
   {
     "slug": "my-new-book11",
