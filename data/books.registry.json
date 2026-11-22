@@ -20,19 +20,6 @@
     "order": 4
   },
   {
-    "docx": "سكان بلاد الشام والتواجد المسيحي.docx",
-    "slug": "levant-peoples",
-    "accent": "#2B2A1C",
-    "tags": [
-      "تاريخ",
-      "بلاد الشام"
-    ],
-    "order": 4,
-    "overrides": {
-      "title": "سكان بلاد الشام والوجود المسيحي"
-    }
-  },
-  {
     "docx": "المؤامرة.docx",
     "slug": "the-conspiracy",
     "accent": "#3A1C22",
@@ -54,6 +41,19 @@
       "نقد ديني"
     ],
     "order": 5
+  },
+  {
+    "docx": "سكان بلاد الشام والتواجد المسيحي.docx",
+    "slug": "levant-peoples",
+    "accent": "#2B2A1C",
+    "tags": [
+      "تاريخ",
+      "بلاد الشام"
+    ],
+    "order": 6,
+    "overrides": {
+      "title": "سكان بلاد الشام والوجود المسيحي"
+    }
   },
   {
     "docx": "من آلهة وملوك إلى عبيد.docx",

@@ -23,29 +23,6 @@
     "chapterCount": 18
   },
   {
-    "slug": "levant-peoples",
-    "title": "سكان بلاد الشام والوجود المسيحي",
-    "subtitle": null,
-    "author": "عصام السالم",
-    "sourceFile": "سكان بلاد الشام والتواجد المسيحي.docx",
-    "accent": "#2B2A1C",
-    "tags": [
-      "تاريخ",
-      "بلاد الشام"
-    ],
-    "order": 4,
-    "pageCount": 214,
-    "wordCount": 41097,
-    "readingMinutes": 249,
-    "tocConfidence": "high",
-    "titleConflict": null,
-    "pdf": {
-      "path": "/books/levant-peoples.pdf",
-      "bytes": 1542483
-    },
-    "chapterCount": 10
-  },
-  {
     "slug": "the-disease-of-power",
     "title": "داء السلطة",
     "subtitle": null,
@@ -132,6 +109,29 @@
       "bytes": 4932547
     },
     "chapterCount": 40
+  },
+  {
+    "slug": "levant-peoples",
+    "title": "سكان بلاد الشام والوجود المسيحي",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "سكان بلاد الشام والتواجد المسيحي.docx",
+    "accent": "#2B2A1C",
+    "tags": [
+      "تاريخ",
+      "بلاد الشام"
+    ],
+    "order": 6,
+    "pageCount": 214,
+    "wordCount": 41097,
+    "readingMinutes": 249,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/levant-peoples.pdf",
+      "bytes": 1542483
+    },
+    "chapterCount": 10
   },
   {
     "slug": "my-new-book",
