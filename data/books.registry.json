@@ -1,15 +1,5 @@
 [
   {
-    "docx": "داء السلطة.docx",
-    "slug": "the-disease-of-power",
-    "accent": "#33261A",
-    "tags": [
-      "سياسة",
-      "مجتمع"
-    ],
-    "order": 2
-  },
-  {
     "docx": "ولادة الدين الجديد.docx",
     "slug": "birth-of-the-new-religion",
     "accent": "#17281E",
@@ -32,6 +22,16 @@
       "title": "المؤامرة",
       "subtitle": "دراسة تحليلية لنظرية المؤامرة والأحداث التي مرت على سوريا منذ تأسيسها"
     }
+  },
+  {
+    "docx": "داء السلطة.docx",
+    "slug": "the-disease-of-power",
+    "accent": "#33261A",
+    "tags": [
+      "سياسة",
+      "مجتمع"
+    ],
+    "order": 4
   },
   {
     "docx": "سكان بلاد الشام والتواجد المسيحي.docx",
