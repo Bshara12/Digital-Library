@@ -69,29 +69,6 @@
     "chapterCount": 29
   },
   {
-    "slug": "from-gods-to-slaves",
-    "title": "من آلهة وملوك إلى عبيد",
-    "subtitle": null,
-    "author": "عصام السالم",
-    "sourceFile": "من آلهة وملوك إلى عبيد.docx",
-    "accent": "#1E2D1A",
-    "tags": [
-      "تاريخ",
-      "مجتمع"
-    ],
-    "order": 6,
-    "pageCount": 135,
-    "wordCount": 25685,
-    "readingMinutes": 156,
-    "tocConfidence": "high",
-    "titleConflict": null,
-    "pdf": {
-      "path": "/books/from-gods-to-slaves.pdf",
-      "bytes": 4932547
-    },
-    "chapterCount": 40
-  },
-  {
     "slug": "levant-peoples",
     "title": "سكان بلاد الشام والوجود المسيحي",
     "subtitle": null,
@@ -203,6 +180,29 @@
       "bytes": 565884
     },
     "chapterCount": 11
+  },
+  {
+    "slug": "from-gods-to-slaves",
+    "title": "من آلهة وملوك إلى عبيد",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "من آلهة وملوك إلى عبيد.docx",
+    "accent": "#1E2D1A",
+    "tags": [
+      "تاريخ",
+      "مجتمع"
+    ],
+    "order": 9,
+    "pageCount": 135,
+    "wordCount": 25685,
+    "readingMinutes": 156,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/from-gods-to-slaves.pdf",
+      "bytes": 4932547
+    },
+    "chapterCount": 40
   },
   {
     "slug": "nephilim-anunnaki",

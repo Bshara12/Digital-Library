@@ -47,16 +47,6 @@
     }
   },
   {
-    "docx": "من آلهة وملوك إلى عبيد.docx",
-    "slug": "from-gods-to-slaves",
-    "accent": "#1E2D1A",
-    "tags": [
-      "تاريخ",
-      "مجتمع"
-    ],
-    "order": 6
-  },
-  {
     "docx": "صراع القداسة بين الدناسة (AutoRecovered).docx",
     "slug": "autorecovered",
     "accent": "#2A2340",
@@ -86,6 +76,16 @@
       "حضارات قديمة"
     ],
     "order": 8
+  },
+  {
+    "docx": "من آلهة وملوك إلى عبيد.docx",
+    "slug": "from-gods-to-slaves",
+    "accent": "#1E2D1A",
+    "tags": [
+      "تاريخ",
+      "مجتمع"
+    ],
+    "order": 9
   },
   {
     "docx": "المعجزات.docx",
