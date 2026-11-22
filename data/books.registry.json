@@ -1,15 +1,5 @@
 [
   {
-    "docx": "ولادة الدين الجديد.docx",
-    "slug": "birth-of-the-new-religion",
-    "accent": "#17281E",
-    "tags": [
-      "أديان",
-      "تحليل"
-    ],
-    "order": 1
-  },
-  {
     "docx": "داء السلطة.docx",
     "slug": "the-disease-of-power",
     "accent": "#33261A",
@@ -18,6 +8,16 @@
       "مجتمع"
     ],
     "order": 2
+  },
+  {
+    "docx": "ولادة الدين الجديد.docx",
+    "slug": "birth-of-the-new-religion",
+    "accent": "#17281E",
+    "tags": [
+      "أديان",
+      "تحليل"
+    ],
+    "order": 3
   },
   {
     "docx": "المؤامرة.docx",

@@ -1,28 +1,5 @@
 [
   {
-    "slug": "birth-of-the-new-religion",
-    "title": "ولادة الدين الجديد",
-    "subtitle": "دراسة موجزة وتحليل إمكانية سيطرة الدين الابراهيمي",
-    "author": "عصام السالم",
-    "sourceFile": "ولادة الدين الجديد.docx",
-    "accent": "#17281E",
-    "tags": [
-      "أديان",
-      "تحليل"
-    ],
-    "order": 1,
-    "pageCount": 101,
-    "wordCount": 19827,
-    "readingMinutes": 120,
-    "tocConfidence": "high",
-    "titleConflict": null,
-    "pdf": {
-      "path": "/books/birth-of-the-new-religion.pdf",
-      "bytes": 1161415
-    },
-    "chapterCount": 18
-  },
-  {
     "slug": "the-disease-of-power",
     "title": "داء السلطة",
     "subtitle": null,
@@ -67,6 +44,29 @@
       "bytes": 1282841
     },
     "chapterCount": 29
+  },
+  {
+    "slug": "birth-of-the-new-religion",
+    "title": "ولادة الدين الجديد",
+    "subtitle": "دراسة موجزة وتحليل إمكانية سيطرة الدين الابراهيمي",
+    "author": "عصام السالم",
+    "sourceFile": "ولادة الدين الجديد.docx",
+    "accent": "#17281E",
+    "tags": [
+      "أديان",
+      "تحليل"
+    ],
+    "order": 3,
+    "pageCount": 101,
+    "wordCount": 19827,
+    "readingMinutes": 120,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/birth-of-the-new-religion.pdf",
+      "bytes": 1161415
+    },
+    "chapterCount": 18
   },
   {
     "slug": "levant-peoples",
