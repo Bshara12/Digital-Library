@@ -1,5 +1,14 @@
 [
   {
+    "docx": "أنبياء ولكن.docx",
+    "slug": "my-new-book2",
+    "accent": "#2A2340",
+    "tags": [
+      "تاريخ ديني"
+    ],
+    "order": 2
+  },
+  {
     "docx": "ولادة الدين الجديد.docx",
     "slug": "birth-of-the-new-religion",
     "accent": "#17281E",

@@ -1,5 +1,27 @@
 [
   {
+    "slug": "my-new-book2",
+    "title": "أنبياء ولكن",
+    "subtitle": "الموضوع — صفحة",
+    "author": "عصام السالم",
+    "sourceFile": "أنبياء ولكن.docx",
+    "accent": "#2A2340",
+    "tags": [
+      "تاريخ ديني"
+    ],
+    "order": 2,
+    "pageCount": 568,
+    "wordCount": 84645,
+    "readingMinutes": 513,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/my-new-book2.pdf",
+      "bytes": 3118977
+    },
+    "chapterCount": 311
+  },
+  {
     "slug": "birth-of-the-new-religion",
     "title": "ولادة الدين الجديد",
     "subtitle": "دراسة موجزة وتحليل إمكانية سيطرة الدين الابراهيمي",
