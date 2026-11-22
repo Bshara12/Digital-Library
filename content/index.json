@@ -46,25 +46,6 @@
     "chapterCount": 12
   },
   {
-    "slug": "autorecovered",
-    "title": "صراع القداسة بين الدناسة",
-    "subtitle": null,
-    "author": "عصام السالم",
-    "sourceFile": "صراع القداسة بين الدناسة (AutoRecovered).docx",
-    "accent": "#2A2340",
-    "tags": [
-      "نقد ديني"
-    ],
-    "order": 5,
-    "pageCount": 125,
-    "wordCount": 24262,
-    "readingMinutes": 147,
-    "tocConfidence": "high",
-    "titleConflict": null,
-    "pdf": null,
-    "chapterCount": 29
-  },
-  {
     "slug": "the-conspiracy",
     "title": "المؤامرة",
     "subtitle": "دراسة تحليلية لنظرية المؤامرة والأحداث التي مرت على سوريا منذ تأسيسها",
@@ -157,6 +138,25 @@
       "bytes": 1802741
     },
     "chapterCount": 20
+  },
+  {
+    "slug": "autorecovered",
+    "title": "صراع القداسة بين الدناسة",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "صراع القداسة بين الدناسة (AutoRecovered).docx",
+    "accent": "#2A2340",
+    "tags": [
+      "نقد ديني"
+    ],
+    "order": 7,
+    "pageCount": 125,
+    "wordCount": 24262,
+    "readingMinutes": 147,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": null,
+    "chapterCount": 29
   },
   {
     "slug": "cosmic-duality-sheol",

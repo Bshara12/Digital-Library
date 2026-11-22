@@ -34,15 +34,6 @@
     }
   },
   {
-    "docx": "صراع القداسة بين الدناسة (AutoRecovered).docx",
-    "slug": "autorecovered",
-    "accent": "#2A2340",
-    "tags": [
-      "نقد ديني"
-    ],
-    "order": 5
-  },
-  {
     "docx": "سكان بلاد الشام والتواجد المسيحي.docx",
     "slug": "levant-peoples",
     "accent": "#2B2A1C",
@@ -64,6 +55,15 @@
       "مجتمع"
     ],
     "order": 6
+  },
+  {
+    "docx": "صراع القداسة بين الدناسة (AutoRecovered).docx",
+    "slug": "autorecovered",
+    "accent": "#2A2340",
+    "tags": [
+      "نقد ديني"
+    ],
+    "order": 7
   },
   {
     "docx": "الفساد السياسي.docx",
