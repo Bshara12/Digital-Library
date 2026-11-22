@@ -159,29 +159,6 @@
     "chapterCount": 40
   },
   {
-    "slug": "nephilim-anunnaki",
-    "title": "من النيفيليم إلى الأنوناكي والكائنات الغامضة",
-    "subtitle": null,
-    "author": "عصام السالم",
-    "sourceFile": "من النيفيليم إلى الأنوناكي والكائنات الغامضة.docx",
-    "accent": "#14203A",
-    "tags": [
-      "حضارات قديمة",
-      "أساطير"
-    ],
-    "order": 10,
-    "pageCount": 99,
-    "wordCount": 17266,
-    "readingMinutes": 105,
-    "tocConfidence": "high",
-    "titleConflict": null,
-    "pdf": {
-      "path": "/books/nephilim-anunnaki.pdf",
-      "bytes": 867384
-    },
-    "chapterCount": 22
-  },
-  {
     "slug": "cosmic-duality-sheol",
     "title": "الثنائية الكونية والشيول",
     "subtitle": null,
@@ -248,5 +225,28 @@
       "bytes": 565884
     },
     "chapterCount": 11
+  },
+  {
+    "slug": "nephilim-anunnaki",
+    "title": "من النيفيليم إلى الأنوناكي والكائنات الغامضة",
+    "subtitle": null,
+    "author": "عصام السالم",
+    "sourceFile": "من النيفيليم إلى الأنوناكي والكائنات الغامضة.docx",
+    "accent": "#14203A",
+    "tags": [
+      "حضارات قديمة",
+      "أساطير"
+    ],
+    "order": 12,
+    "pageCount": 99,
+    "wordCount": 17266,
+    "readingMinutes": 105,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/nephilim-anunnaki.pdf",
+      "bytes": 867384
+    },
+    "chapterCount": 22
   }
 ]
