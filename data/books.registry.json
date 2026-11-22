@@ -78,19 +78,6 @@
     "order": 9
   },
   {
-    "docx": "المعجزات.docx",
-    "slug": "miracles-and-myths",
-    "accent": "#14312F",
-    "tags": [
-      "أديان",
-      "أساطير"
-    ],
-    "order": 9,
-    "overrides": {
-      "title": "المعجزات والأساطير"
-    }
-  },
-  {
     "docx": "الثنائية الكونية والشيول.docx",
     "slug": "cosmic-duality-sheol",
     "accent": "#2A2340",
@@ -109,6 +96,19 @@
       "أساطير"
     ],
     "order": 10
+  },
+  {
+    "docx": "المعجزات.docx",
+    "slug": "miracles-and-myths",
+    "accent": "#14312F",
+    "tags": [
+      "أديان",
+      "أساطير"
+    ],
+    "order": 11,
+    "overrides": {
+      "title": "المعجزات والأساطير"
+    }
   },
   {
     "docx": "تزييف التاريخ واجتزاء الحقيقة.docx",
