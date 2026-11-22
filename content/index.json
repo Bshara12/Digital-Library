@@ -1,28 +1,5 @@
 [
   {
-    "slug": "the-conspiracy",
-    "title": "المؤامرة",
-    "subtitle": "دراسة تحليلية لنظرية المؤامرة والأحداث التي مرت على سوريا منذ تأسيسها",
-    "author": "عصام السالم",
-    "sourceFile": "المؤامرة.docx",
-    "accent": "#3A1C22",
-    "tags": [
-      "سياسة",
-      "تاريخ معاصر"
-    ],
-    "order": 3,
-    "pageCount": 187,
-    "wordCount": 33532,
-    "readingMinutes": 203,
-    "tocConfidence": "high",
-    "titleConflict": null,
-    "pdf": {
-      "path": "/books/the-conspiracy.pdf",
-      "bytes": 1282841
-    },
-    "chapterCount": 29
-  },
-  {
     "slug": "birth-of-the-new-religion",
     "title": "ولادة الدين الجديد",
     "subtitle": "دراسة موجزة وتحليل إمكانية سيطرة الدين الابراهيمي",
@@ -108,6 +85,29 @@
     "tocConfidence": "high",
     "titleConflict": null,
     "pdf": null,
+    "chapterCount": 29
+  },
+  {
+    "slug": "the-conspiracy",
+    "title": "المؤامرة",
+    "subtitle": "دراسة تحليلية لنظرية المؤامرة والأحداث التي مرت على سوريا منذ تأسيسها",
+    "author": "عصام السالم",
+    "sourceFile": "المؤامرة.docx",
+    "accent": "#3A1C22",
+    "tags": [
+      "سياسة",
+      "تاريخ معاصر"
+    ],
+    "order": 5,
+    "pageCount": 187,
+    "wordCount": 33532,
+    "readingMinutes": 203,
+    "tocConfidence": "high",
+    "titleConflict": null,
+    "pdf": {
+      "path": "/books/the-conspiracy.pdf",
+      "bytes": 1282841
+    },
     "chapterCount": 29
   },
   {
